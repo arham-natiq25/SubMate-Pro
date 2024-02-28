@@ -37,8 +37,9 @@ use Cartalyst\Sentinel\Persistences\EloquentPersistence;
 use Cartalyst\Sentinel\Persistences\PersistableInterface;
 use Cartalyst\Sentinel\Users\UserInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class EloquentUser extends Model implements PermissibleInterface, PersistableInterface, RoleableInterface, UserInterface
+class User extends Model implements PermissibleInterface, PersistableInterface, RoleableInterface, UserInterface , JWTSubject
 {
     use PermissibleTrait;
 
@@ -483,5 +484,14 @@ class EloquentUser extends Model implements PermissibleInterface, PersistableInt
         }
 
         return new static::$permissionsClass($userPermissions, $rolePermissions);
+    }
+    public function getJWTIdentifier()
+    {
+      return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+      return [];
     }
 }
