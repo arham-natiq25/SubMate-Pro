@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     function __invoke()
-   {
-
-   }
+    {
+        $userData = auth()->user();
+        return response()->json([
+            'status' => true,
+            'message' => 'profile data',
+            'user' => $userData
+        ]);
+    }
 }
