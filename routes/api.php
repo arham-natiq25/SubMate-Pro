@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordLinkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register',RegisterController::class)->name('register');
 Route::post('/login',LoginController::class)->name('login');
 Route::get('/email/active/{token}', EmailActivationController::class)->name('email.active');
+Route::post('/reset-password', ResetPasswordLinkController::class)->name('reset-user-password');
+
 
 
 Route::group(['middleware'=>'auth:api'],function () {
