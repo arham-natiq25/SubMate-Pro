@@ -9,6 +9,11 @@ class RefreshTokenController extends Controller
 {
     function __invoke()
     {
-
+        $newToken = auth()->refresh();
+        return response()->json([
+            'status'=>true,
+            'message'=>'New Access Token generated',
+            'token'=>$newToken
+        ]);
     }
 }
