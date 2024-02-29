@@ -4,6 +4,9 @@
 <p>This message is for your Password Reset:</p>
 
 
+{{-- // WE NEED TO MODIFY THIS SO THAT AFTER GETTING MAIL WE REDIRECT TO ANOTHER CONTROLLER FROM WHERE WE PASS TOKEN AFTER THAT FROM FORM SUBMT IT TO OTHER CONTROLLER --}}
+{{-- AND UPDATE FROM THAT CONTROLLER --}}
+
 {{-- <a href="{{ route('auth.forget-password', ['token' => $token]) }}">
     <button class="btn btn-danger">
        Change Your Password

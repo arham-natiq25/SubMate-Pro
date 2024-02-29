@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Mail\UserActivationMail;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class RegisterController extends Controller
 {
@@ -33,7 +35,6 @@ class RegisterController extends Controller
 
         if ($user) {
             $mail = Mail::to($user->email)->send(new UserActivationMail($activation->code));
-
             if ($mail) {
                 return response()->json([
                     'status'=>true,
