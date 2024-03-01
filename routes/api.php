@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResendActivationEmailController;
 use App\Http\Controllers\Auth\ResetPasswordLinkController;
+use App\Http\Controllers\Plans\PlanController;
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,9 +40,6 @@ Route::post('/update-password/{token}',PasswordUpdateController::class)->name('p
 Route::post('/resend/email', ResendActivationEmailController::class)->name('resend-email');
 
 
-
-
-
 Route::group(['middleware'=>'auth:api'],function () {
    Route::get('/profile',ProfileController::class)->name('profile');
    Route::get('/refresh',RefreshTokenController::class)->name('refresh');
@@ -48,3 +47,14 @@ Route::group(['middleware'=>'auth:api'],function () {
 });
 
 /** END APIS OF AUTHENTICATION  */
+
+/**  PLAN CONTROLLER  */
+
+Route::post('/plans',[PlanController::class,'storePlan'])->name('plan.store');
+Route::post('/plans/update/{id}',[PlanController::class,'updatePlan'])->name('plan.store');
+Route::delete('/plans/delete/{id}',[PlanController::class,'deletePlan'])->name('plan.delete');
+Route::get('/plans', [PlanController::class,'index']);
+Route::get('/plans/{id}/edit',[PlanController::class,'editPlan'])->name('plan.edit');
+
+/** END PLAN CONTROLLER  */
+
