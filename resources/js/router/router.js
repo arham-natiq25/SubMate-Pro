@@ -4,6 +4,7 @@ import Login from '../components/auth/Login.vue';
 import Register from '../components/auth/Register.vue';
 import ForgetPassword from '../components/auth/ForgetPassword.vue';
 import ResetPassword from '../components/auth/ResetPassword.vue';
+import Dashboard from '../components/views/Dashboard.vue';
 
 const routes = [
 
@@ -34,6 +35,13 @@ const routes = [
         component:ResetPassword,
         meta: {
             title: 'Reset Password',
+        },
+    },
+    {
+        path:'/dashboard',
+        component:Dashboard,
+        meta: {
+            title: 'Dashboard',
         },
     },
 

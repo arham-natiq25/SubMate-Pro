@@ -1,11 +1,6 @@
 <template>
-    <div class="container">
 
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+    <GuestLayout>
 
                 <div class="card mb-3">
 
@@ -76,18 +71,15 @@
 
                   </div>
                 </div>
-
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-      </div>
+            </GuestLayout>
 
 </template>
-<script>
-export default {
 
+<script>
+import GuestLayout from '../layouts/GuestLayout.vue';
+export default {
+    components: {
+        GuestLayout,
+    },
 }
 </script>
