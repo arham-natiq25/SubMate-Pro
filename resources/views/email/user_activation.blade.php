@@ -2,8 +2,12 @@
 
 <p>This message is for your email activation:</p>
 
+@php
+    $activationLink = url('/activation/' . $token);
+@endphp
 
-<a href="{{ route('email.active', ['token' => $token]) }}">
+
+<a href="{{ $activationLink }}">
     <button class="btn btn-primary">
         Activate Your Account
     </button>

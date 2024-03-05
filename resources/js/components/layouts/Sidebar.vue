@@ -95,14 +95,34 @@
           </li><!-- End Error 404 Page Nav -->
 
           <li class="nav-item">
-            <a class="nav-link " href="blank.php">
+            <a class="nav-link collapsed" href="blank.php">
               <i class="bi bi-file-earmark"></i>
               <span>Blank</span>
             </a>
           </li><!-- End Blank Page Nav -->
 
+          <li class="nav-item">
+            <a class="nav-link collapsed" @click="logout" style="cursor: pointer;" >
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Logout</span>
+            </a>
+          </li>
         </ul>
 
     </aside>
 
 </template>
+<script>
+export default {
+  methods: {
+    logout() {
+      // Clear the authentication token from local storage
+      localStorage.removeItem('token');
+
+      // Optionally, perform additional cleanup or redirect to the login page
+      // For example, you can redirect to the login page after logout
+      this.$router.push('/login');
+    },
+  },
+};
+</script>

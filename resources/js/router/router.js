@@ -5,6 +5,7 @@ import Register from '../components/auth/Register.vue';
 import ForgetPassword from '../components/auth/ForgetPassword.vue';
 import ResetPassword from '../components/auth/ResetPassword.vue';
 import Dashboard from '../components/views/Dashboard.vue';
+import Activation from '../components/auth/Activation.vue';
 
 const routes = [
 
@@ -14,6 +15,7 @@ const routes = [
         component:Login,
         meta: {
             title: 'Login',
+            guest: true,
         },
     },
     {
@@ -38,10 +40,18 @@ const routes = [
         },
     },
     {
+        path:'/activation/:token',
+        component:Activation,
+        meta: {
+            title: 'Activation',
+        },
+    },
+    {
         path:'/dashboard',
         component:Dashboard,
         meta: {
             title: 'Dashboard',
+            requiresAuth: true, // Add this to require authentication for this route
         },
     },
 
@@ -55,9 +65,35 @@ const router   = createRouter({
 
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title || 'Subscription Management';
-    next();
-  });
 
+    // Check if the route requires authentication
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      // Check if the user is authenticated (replace this with your authentication logic)
+      const isAuthenticated = localStorage.getItem('token');
+
+      if (!isAuthenticated) {
+        // If not authenticated, redirect to the login page
+        next('/login');
+      } else {
+        // If authenticated, proceed to the requested route
+        next();
+      }
+    } else if (to.matched.some(record => record.meta.guest)) {
+      // Check if the route is meant for guests (unauthenticated users)
+      const isAuthenticated = localStorage.getItem('token');
+
+      if (isAuthenticated) {
+        // If authenticated, redirect to the dashboard
+        next('/dashboard');
+      } else {
+        // If not authenticated, proceed to the requested route
+        next();
+      }
+    } else {
+      // If the route does not require authentication or is for guests, proceed
+      next();
+    }
+  });
 
 
 export default router;

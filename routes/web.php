@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any','.*');
+
+// Route::get('/activation/{token}', function () {
+//     return view('Activation'); // Replace 'activation' with the actual name of your Vue component file
+// })->where('token', '.*');
