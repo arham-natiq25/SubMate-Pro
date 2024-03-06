@@ -1,63 +1,82 @@
 <template>
-   <GuestLayout>
-    <div class="card mb-3">
-
+    <GuestLayout>
+      <div class="card mb-3">
         <div class="card-body">
           <p></p>
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            A simple success alert—check it out!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <!-- Loading and alert messages go here -->
+          <div v-if="isLoading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            A simple danger alert—check it out!
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <div v-if="activationMessage" class="alert alert-success" role="alert">
+            {{ activationMessage }}
+          </div>
+
+          <div v-if="activationError" class="alert alert-danger" role="alert">
+            {{ activationError }}
           </div>
 
           <div class="pt-4 pb-2">
-            <p class="text-center small">Activating your account.</p>
+            <p v-if="!isLoading && !activationMessage && !activationError" class="text-center small">Activating your account.</p>
           </div>
 
-          <form class="row g-3 needs-validation" novalidate>
-
+          <form v-if="!isLoading" class="row g-3 needs-validation" novalidate>
             <div class="col-12">
-              <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
+                <p class="small mb-0">Have account? <router-link to="/login">Login</router-link></p>
               </div>
-            </div>
-
-
-            <div class="col-12">
-            </div>
-            <div class="col-12">
-              <p class="small mb-0">Have account? <a href="login.html">Login</a></p>
-            </div>
           </form>
-
         </div>
       </div>
+    </GuestLayout>
+  </template>
 
-   </GuestLayout>
+  <script>
+  import GuestLayout from '../layouts/GuestLayout.vue';
+  import axios from 'axios';
 
-</template>
+  export default {
+    components: {
+      GuestLayout,
+    },
+    data() {
+      return {
+        isLoading: true,
+        activationMessage: '',
+        activationError: '',
+      };
+    },
+    created() {
+      const token = this.$route.params.token;
+      console.log('Token from URL:', token);
 
-<script>
-import GuestLayout from '../layouts/GuestLayout.vue'
-export default {
-components:{
-    GuestLayout
-},
-created() {
-    // Access the token from the route parameters
-    const token = this.$route.params.token;
-    console.log('Token from URL:', token);
+      // Call the API for activation
+      this.activateUser(token);
+    },
+    methods: {
+      activateUser(token) {
+        const apiEndpoint = `/api/email/active/${token}`;
 
-    // Now you can use the token as needed, e.g., send it to an API for activation
-    // Example: this.activateUser(token);
-  },
-
-
-}
-</script>
+        axios.get(apiEndpoint)
+          .then(response => {
+            // Check the status field in the response
+            if (response.data.status) {
+              // Success
+              this.isLoading = false;
+              this.activationMessage = response.data.message;
+            } else {
+              // Error
+              this.isLoading = false;
+              this.activationError = response.data.message;
+            }
+          })
+          .catch(error => {
+            // Handle error
+            this.isLoading = false;
+            this.activationError = error.response.data.message;
+          });
+      },
+    },
+  };
+  </script>

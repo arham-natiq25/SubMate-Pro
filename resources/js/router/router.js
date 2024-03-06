@@ -23,6 +23,7 @@ const routes = [
         component:Register,
         meta: {
             title: 'Register',
+            guest: true,
         },
     },
     {
@@ -30,6 +31,7 @@ const routes = [
         component:ForgetPassword,
         meta: {
             title: 'Forget Password',
+            guest: true,
         },
     },
     {
@@ -37,6 +39,7 @@ const routes = [
         component:ResetPassword,
         meta: {
             title: 'Reset Password',
+            guest: true,
         },
     },
     {
@@ -44,6 +47,7 @@ const routes = [
         component:Activation,
         meta: {
             title: 'Activation',
+            guest: true,
         },
     },
     {

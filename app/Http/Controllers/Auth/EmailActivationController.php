@@ -17,9 +17,10 @@ class EmailActivationController extends Controller
         if(!$activation){
             return response()->json([
                 'status'=>false,
-                'message'=>'Email Link Expires'
+                'message'=>'Email Link Expires or not found'
             ]);
         }
+
 
         if ($activation) {
 
@@ -41,7 +42,7 @@ class EmailActivationController extends Controller
             // Sentinel::login($user);
             return  response()->json([
                 'status'=>true,
-                'message'=>'Activation Completed'
+                'message'=>'Your Activation is successfully Completed'
             ]);
         } else {
             return  response()->json([
