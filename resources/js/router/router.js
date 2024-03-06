@@ -6,7 +6,8 @@ import ForgetPassword from '../components/auth/ForgetPassword.vue';
 import ResetPassword from '../components/auth/ResetPassword.vue';
 import Dashboard from '../components/views/Dashboard.vue';
 import Activation from '../components/auth/Activation.vue';
-
+import Plans from '../components/views/Plans.vue';
+import NotFound from '../components/views/NotFound.vue'; // Import your custom 404 component
 const routes = [
 
     // AUTH ROUTES
@@ -50,6 +51,7 @@ const routes = [
             guest: true,
         },
     },
+    // AUTH ROUTES END
     {
         path:'/dashboard',
         component:Dashboard,
@@ -59,7 +61,23 @@ const routes = [
         },
     },
 
-    // AUTH ROUTES END
+    {
+        path:'/plans',
+        component:Plans,
+        meta: {
+            title: 'Plans',
+            requiresAuth: true, // Add this to require authentication for this route
+        },
+    },
+     // Wildcard route for undefined routes
+    {
+        path: '/:catchAll(.*)',
+        component: NotFound,
+        meta: {
+        title: 'Not Found',
+        },
+    },
+
 ]
 
 const router   = createRouter({
