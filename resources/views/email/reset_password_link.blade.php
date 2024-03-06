@@ -7,11 +7,16 @@
 {{-- // WE NEED TO MODIFY THIS SO THAT AFTER GETTING MAIL WE REDIRECT TO ANOTHER CONTROLLER FROM WHERE WE PASS TOKEN AFTER THAT FROM FORM SUBMT IT TO OTHER CONTROLLER --}}
 {{-- AND UPDATE FROM THAT CONTROLLER --}}
 
-{{-- <a href="{{ route('auth.forget-password', ['token' => $token]) }}">
+@php
+    $activationLink = url('/reset-password/' . $token);
+@endphp
+
+
+<a href="{{ $activationLink }}">
     <button class="btn btn-danger">
        Change Your Password
     </button>
-</a> --}}
+</a>
 <p>
     Thank you for choosing {{ config('app.name') }}. Click the button above to reset your account password and start enjoying our services.
 </p>

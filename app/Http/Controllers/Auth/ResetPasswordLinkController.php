@@ -18,7 +18,7 @@ class ResetPasswordLinkController extends Controller
 
     if ($user) {
         $reminder = Sentinel::getReminderRepository()->create($user);
-        // Mail::to($user->email)->send(new ResetPasswordLink($reminder->code));
+        Mail::to($user->email)->send(new ResetPasswordLink($reminder->code));
 
         return response()->json([
             'status'=>true,
