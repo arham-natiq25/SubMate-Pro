@@ -22,12 +22,14 @@ class PlanController extends Controller
     }
     function storePlan(Request $request)
     {
+
         $request->validate([
-            'name'=>'required|max:255|min:3',
-            'short_description'=>'required',
-            'monthly_price'=>'required|integer',
-            'year_price'=>'required|integer'
+            'name' => 'required|max:255|min:3',
+            'short_description' => 'required',
+            'monthly_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'year_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ]);
+
         $uuid = Str::uuid();
         $plan = Plan::create([
             'id'=>$uuid,
@@ -75,8 +77,8 @@ class PlanController extends Controller
         $request->validate([
             'name' => 'required|max:255|min:3',
             'short_description' => 'required',
-            'monthly_price' => 'required|integer',
-            'year_price' => 'required|integer',
+            'monthly_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'year_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'trial' => 'boolean',
         ]);
 

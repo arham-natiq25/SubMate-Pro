@@ -2,7 +2,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
-        <img src="http://127.0.0.1:8000/backend/assets/img/logo.png" alt="" />
+        <img :src="`${baseUrl}/backend/assets/img/logo.png`" alt="Logo" />
         <span class="d-none d-lg-block">NiceAdmin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -256,11 +256,16 @@
 
 <script>
 import UserInfo from "../user-logged-in/UserInfo";
-
+import { BASE_URL } from "../../config";
 export default {
   mixins: [UserInfo],
   created() {
     this.fetchUserInfo();
+  },
+  data() {
+    return {
+      baseUrl: BASE_URL,
+    };
   },
 };
 </script>
