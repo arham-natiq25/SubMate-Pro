@@ -25,7 +25,10 @@
 
   <link href="{{asset('backend/assets/css/style.css')}}" rel="stylesheet">
 
+
+  <script src="https://js.stripe.com/v3/"></script>
   @vite('resources/js/app.css')
+
 </head>
 
 <body>

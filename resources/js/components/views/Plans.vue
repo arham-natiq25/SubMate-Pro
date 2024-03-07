@@ -43,6 +43,42 @@
               </div>
             </div>
           </div>
+          <div class="offset-md-3 col-md-6 p-2">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="modal-title mb-2 text-center p-2">Payment for Subscription</h4>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div v-if="errorMessage" class="alert alert-danger">
+                      {{ errorMessage }}
+                    </div>
+                    <div class="form-group">
+                      <label for="card-number">Card Number</label>
+                      <div id="card-number" class="form-control"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="card-expiry">Expiration Date</label>
+                    <div id="card-expiry" class="form-control"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="card-cvc">CVC</label>
+                    <div id="card-cvc" class="form-control"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <button class="btn btn-danger mt-3" @click="submit">Cancel</button>
+                    </div>
+                    <div class="col-md-9 text-end">
+                      <button class="btn btn-success mt-3" @click="submit">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -52,7 +88,6 @@
 <script>
 import AppLayout from "../layouts/AppLayout.vue";
 import axios from "axios";
-
 export default {
   components: {
     AppLayout,
@@ -60,6 +95,15 @@ export default {
   data() {
     return {
       plans: [],
+      elements: null,
+      stripe: null,
+      cardNumberElement: null,
+      cardExpiryElement: null,
+      cardCvcElement: null,
+      errorMessage: "",
+      successMessage: "",
+      cards: [],
+      selectedCard: null,
     };
   },
   methods: {
@@ -72,10 +116,42 @@ export default {
         .get("/api/plans") // Adjust the endpoint accordingly
         .then((response) => {
           this.plans = response.data.plans;
+          // when we get plans successfully we can load stripe easily
+          this.loadStripe();
         })
         .catch((error) => {
           console.error("Error fetching plans:", error);
         });
+    },
+
+    loadStripe() {
+      // if current windonw has Stripe set primary key
+      if (window.Stripe) {
+        this.stripe = window.Stripe(
+          "pk_test_51NUU03Emu0Ala7lxKFLz0kgK8mfOVQr99wlJMIDW39xzneQ0B6Zb2x9irWjjNuldkUYyDFQG11FE50M6px3wvrVx00A0milkpo"
+        );
+        this.elements = this.stripe.elements();
+        // Create an instance of the card number Element
+        this.cardNumberElement = this.elements.create("cardNumber", {
+          placeholder: "Card Number",
+        });
+        this.cardNumberElement.mount("#card-number");
+
+        // Create an instance of the card expiry Element
+        this.cardExpiryElement = this.elements.create("cardExpiry", {
+          placeholder: "MM / YY",
+        });
+        this.cardExpiryElement.mount("#card-expiry");
+
+        // Create an instance of the card cvc Element
+        this.cardCvcElement = this.elements.create("cardCvc", {
+          placeholder: "CVC",
+        });
+        this.cardCvcElement.mount("#card-cvc");
+      } else {
+        // Handle the case when Stripe is not available
+        console.error("Stripe is not available");
+      }
     },
   },
   mounted() {
