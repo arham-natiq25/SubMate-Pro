@@ -55,6 +55,8 @@ class SubscriptionController extends Controller
                 'start_date'=> Carbon::now(),
                 'end_date'=> $endDate
             ]);
+
+            return $result;
         }
 
 

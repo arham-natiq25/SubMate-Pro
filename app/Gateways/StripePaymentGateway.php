@@ -67,7 +67,7 @@ class StripePaymentGateway implements PaymentGateway
                 'method'=>1
             ]);
 
-            return response()->json(['success' => true, 'message' => 'Payment successfully received']);
+            return response()->json(['success' => true, 'message' => 'Payment successfully received, Your subscription is Created']);
         } catch (\Throwable $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
