@@ -3,5 +3,5 @@
 namespace App\Interfaces;
 
 interface PaymentGateway {
-    public function charge($request);
+    public function charge($request,$user);
 }

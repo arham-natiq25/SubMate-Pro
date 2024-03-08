@@ -4,7 +4,6 @@
       <div class="pagetitle">
         <h1>Plans</h1>
       </div>
-
       <section class="section">
         <div class="row">
           <!-- plans start  -->
@@ -219,8 +218,14 @@ export default {
                 method: 0,
             };
 
+            const token = localStorage.getItem('token');
+
+            // Set the Authorization header with the JWT token
+            const headers = {
+                Authorization: `Bearer ${token}`,
+            };
             axios
-                .post("/api/buy-subscription ", attr)
+                .post("/api/buy-subscription ", attr,{ headers })
                 .then((response) => {
                     if (response.data.success) {
                         this.successMessage = response.data.message;
