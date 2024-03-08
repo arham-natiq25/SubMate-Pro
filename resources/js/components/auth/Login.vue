@@ -85,6 +85,10 @@
               localStorage.setItem('token', response.data.token);
               // redirect to dashboard on successful login
               this.$router.push('/dashboard');
+              setTimeout(() => {
+                  localStorage.removeItem('token');
+                  this.$router.push('/login');
+            }, 2 * 60 * 60 * 1000);
             } else {
               // Show error message
               this.errorMessage = response.data.message;

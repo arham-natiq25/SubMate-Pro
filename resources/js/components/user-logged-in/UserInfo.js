@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       userName: "",
+      userEmail:"",
     };
   },
   created() {
@@ -22,6 +23,7 @@ export default {
         .then((response) => {
           const userData = response.data.user;
           this.userName = userData.first_name;
+          this.userEmail= userData.email
         })
         .catch((error) => {
           console.error("Error fetching user information:", error);
