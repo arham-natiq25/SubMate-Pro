@@ -66,6 +66,7 @@
         },
         successMessage: '',
         errorMessage: '',
+        subscription:false
       };
     },
     methods: {
@@ -82,9 +83,18 @@
               // Show success message
               this.successMessage = response.data.message;
 
-              localStorage.setItem('token', response.data.token);
+              this.subscription = response.data.subscription
+
+                localStorage.setItem('token', response.data.token);
+              if (this.subscription===true) {
+                    this.$router.push('/dashboard');
+                }else{
+                this.$router.push('/plans');
+              }
+
+
+
               // redirect to dashboard on successful login
-              this.$router.push('/dashboard');
               setTimeout(() => {
                   localStorage.removeItem('token');
                   this.$router.push('/login');

@@ -66,7 +66,7 @@ const routes = [
         component:Plans,
         meta: {
             title: 'Plans',
-            requiresAuth: true, // Add this to require authentication for this route
+            //requiresAuth: true, // Add this to require authentication for this route
         },
     },
      // Wildcard route for undefined routes
@@ -85,38 +85,56 @@ const router   = createRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || 'Subscription Management';
+router.beforeEach(async (to, from, next) => {
+  document.title = to.meta.title || 'Subscription Management';
 
-    // Check if the route requires authentication
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      // Check if the user is authenticated (replace this with your authentication logic)
-      const isAuthenticated = localStorage.getItem('token');
+  // Check if the route requires authentication
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Check if the user is authenticated (replace this with your authentication logic)
+    const isAuthenticated = localStorage.getItem('token');
 
-      if (!isAuthenticated) {
-        // If not authenticated, redirect to the login page
-        next('/login');
-      } else {
-        // If authenticated, proceed to the requested route
-        next();
-      }
-    } else if (to.matched.some(record => record.meta.guest)) {
-      // Check if the route is meant for guests (unauthenticated users)
-      const isAuthenticated = localStorage.getItem('token');
-
-      if (isAuthenticated) {
-        // If authenticated, redirect to the dashboard
-        next('/dashboard');
-      } else {
-        // If not authenticated, proceed to the requested route
-        next();
-      }
+    if (!isAuthenticated) {
+      // If not authenticated, redirect to the login page
+      next('/login');
     } else {
-      // If the route does not require authentication or is for guests, proceed
+      // If authenticated, proceed to check the subscription status
+      try {
+        // Make an API call to check subscription status
+        const response = await axios.get('/api/check-subcription', {
+          headers: {
+            Authorization: `Bearer ${isAuthenticated}`,
+          },
+        });
+
+        if (response.data.has_subscription) {
+          // If the user has an active subscription, proceed to the requested route
+          next();
+        } else {
+          // If the user does not have an active subscription, redirect to the plans page or another route
+          next('/plans');
+        }
+      } catch (error) {
+        // Handle API call error
+        console.error(error);
+        // Redirect to an error page or another route as needed
+        next('/error');
+      }
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    // Check if the route is meant for guests (unauthenticated users)
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (isAuthenticated) {
+      // If authenticated, redirect to the dashboard
+      next('/dashboard');
+    } else {
+      // If not authenticated, proceed to the requested route
       next();
     }
-  });
-
-
+  } else {
+    // If the route does not require authentication or is for guests, proceed
+    next();
+  }
+});
 export default router;
 

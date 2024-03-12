@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserSubscription;
+use Carbon\Carbon;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
@@ -35,6 +37,13 @@ class LoginController extends Controller
             if ($user) {
                 // check weather the user is activated or not
                 if (Activation::completed($user)) {
+
+                    $userSubscription = UserSubscription::where('end_date','>=',Carbon::now())->where('user_id',$user->id)->latest()->first();
+                    if ($userSubscription) {
+                        $subscription = true;
+                    }else{
+                        $subscription = false;
+                    }
                     // Authenticate successfull
                     $token = JWTAuth::attempt([
                         'email' => $request->email,
@@ -45,7 +54,8 @@ class LoginController extends Controller
                         return response()->json([
                             'status' => true,
                             'message' => "User logged in Successfully",
-                            'token' => $token
+                            'token' => $token,
+                            'subscription'=>$subscription
                         ]);
                     } else {
                         return response()->json([

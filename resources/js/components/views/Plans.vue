@@ -1,20 +1,20 @@
 <template>
-    <AppLayout>
-      <main id="main" class="main">
+      <main class="container my-4">
         <div class="pagetitle">
-          <h1>Plans</h1>
+          <h1 class="p-3">Plans</h1>
         </div>
         <section class="section">
           <div class="row">
               <div v-if="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ successMessage }}
+                <router-link  to="/dashboard">Go to Dashboard</router-link>
                 <button type="button" class="btn-close" @click="clearMessages" aria-label="Close"></button>
               </div>
             <!-- plans start  -->
             <div class="col-lg-12" v-if="showPlans">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Plans</h5>
+                  <h5 class="card-title">Buy a PLAN</h5>
                   <div class="row">
                     <div v-for="plan in plans" :key="plan.id" class="col-5 mt-3">
                       <div class="card text-center">
@@ -132,13 +132,13 @@
           </div>
         </section>
       </main>
-    </AppLayout>
   </template>
 
   <script>
   import AppLayout from "../layouts/AppLayout.vue";
   import axios from "axios";
   import UserInfo from "../user-logged-in/UserInfo";
+  import { isAuthenticated, redirectToLoginPage } from '../auth';
 
   export default {
     mixins: [UserInfo],
@@ -180,6 +180,12 @@
       },
 
       subscribe(plan, type) {
+
+        if (!isAuthenticated()) {
+        // Redirect to the login page if not authenticated
+        redirectToLoginPage(this.$router);
+        return;
+      }
         this.selectedPlan = [plan, type];
         this.showPayment = true;
         this.showPlans = false;
