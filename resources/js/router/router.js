@@ -8,6 +8,7 @@ import Dashboard from '../components/views/Dashboard.vue';
 import Activation from '../components/auth/Activation.vue';
 import Plans from '../components/views/Plans.vue';
 import NotFound from '../components/views/NotFound.vue'; // Import your custom 404 component
+import TeamMember from '../components/views/TeamMember.vue';
 const routes = [
 
     // AUTH ROUTES
@@ -57,6 +58,14 @@ const routes = [
         component:Dashboard,
         meta: {
             title: 'Dashboard',
+            requiresAuth: true, // Add this to require authentication for this route
+        },
+    },
+    {
+        path:'/team-members',
+        component:TeamMember,
+        meta: {
+            title: 'Team Members',
             requiresAuth: true, // Add this to require authentication for this route
         },
     },

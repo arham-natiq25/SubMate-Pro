@@ -16,6 +16,12 @@
           <span>Plans</span>
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link to="/team-members" class="nav-link collapsed">
+          <i class="bi bi-people"></i>
+          <span>Team Member</span>
+        </router-link>
+      </li>
 
 
       <!-- End F.A.Q Page Nav -->
