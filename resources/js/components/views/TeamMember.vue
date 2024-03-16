@@ -97,20 +97,7 @@
             <div class="offset-md-2 col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <button class="btn btn-warning my-2" @click="backToPlans()">Back</button>
-                        <p></p>
-                        <div class="row mb-3">
-                            <label class="fw-bold my-2 col-form-label">Select Plan You want to buy </label>
-                            <div class="col-sm-10">
-                              <select class="form-select" aria-label="Default select example">
-                                <option selected>Select a plan</option>
-                                <option value="1">Plan 1 monthly($9.99)</option>
-                                <option value="1">Plan 2 Yearly($19.99)</option>
-                              </select>
-                            </div>
-                          </div>
-                          <button class="btn btn-primary">Proceed to payment</button>
-                    </div>
+                     </div>
                 </div>
 
             </div>
@@ -120,83 +107,7 @@
             <div class="offset-md-2 col-md-8">
                 <div class="card">
                     <div class="card-body">
-                      <button class="btn btn-warning my-2" @click="backToPlans()">Back</button>
-                      <div class="row" v-if="selectedPlan.length > 0">
-                        <div class="col-12 py-3">
-                          <label for="plan_name"
-                            >Plan Name :
-                            <span class="fw-bold">{{ selectedPlan[0].name }}</span></label
-                          >
-                        </div>
-                        <div class="col-12">
-                          <label for="plan_name"
-                            >Plan Price :
-                            <span class="fw-bold"
-                              >${{
-                                selectedPlan[1] === 1
-                                  ? selectedPlan[0].year_price
-                                  : selectedPlan[0].monthly_price
-                              }}</span
-                            ></label
-                          >
-                        </div>
-                        <div class="col-12 py-3">
-                          <label for="plan_name"
-                            >Duration :
-                            <span class="fw-bold"
-                              >{{ selectedPlan[1] === 1 ? "Yearly" : "Monthly" }} ({{
-                                selectedPlan[1] === 1 ? "365" : "30"
-                              }}
-                              days)</span
-                            ></label
-                          >
-                        </div>
-                      </div>
 
-                      <!-- Success message -->
-                      <div v-if="successMessage" class="alert alert-success mt-3">
-                        {{ successMessage }}
-                      </div>
-
-                      <h4 class="modal-title mb-2 text-center p-2">Payment for Subscription</h4>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div v-if="errorMessage" class="alert alert-danger">
-                            {{ errorMessage }}
-                          </div>
-                          <div class="form-group">
-                            <label for="card-number">Card Number</label>
-                            <div id="card-number" class="form-control"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label for="card-expiry">Expiration Date</label>
-                          <div id="card-expiry" class="form-control"></div>
-                        </div>
-                        <div class="col-md-6">
-                          <label for="card-cvc">CVC</label>
-                          <div id="card-cvc" class="form-control"></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-end">
-                            <button
-                              class="btn btn-success mt-3"
-                              @click="submit"
-                              :disabled="loading"
-                            >
-                              <span
-                                v-if="loading"
-                                class="spinner-grow spinner-grow-sm"
-                                role="status"
-                                aria-hidden="true"
-                              ></span>
-                              <span v-else>Submit</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
             </div>
@@ -207,7 +118,8 @@
     </AppLayout>
   </template>
   <script>
-  import AppLayout from "../layouts/AppLayout.vue";
+  import axios from "axios";
+import AppLayout from "../layouts/AppLayout.vue";
 
   export default {
     components: {
@@ -223,55 +135,23 @@
           password_confirmation: '',
         },
         errors: {},
-        plans: [],
-        elements: null,
-        stripe: null,
-        cardNumberElement: null,
-        cardExpiryElement: null,
-        cardCvcElement: null,
-        errorMessage: "",
-        successMessage: "",
         cards: [],
-        selectedCard: null,
-        selectedPlan: [],
-        showPlans: true,
-        showPayment: false,
-        loading: false,
+
       };
     },
     mounted() {
-        this.loadStripe();
+        this.getUserSubscribedPlan();
     },
     methods: {
-        click()
+        getUserSubscribedPlan()
         {
-            alert('clicked')
-        },
-        loadStripe() {
-        if (window.Stripe) {
-          this.stripe = window.Stripe(
-            "pk_test_51NUU03Emu0Ala7lxKFLz0kgK8mfOVQr99wlJMIDW39xzneQ0B6Zb2x9irWjjNuldkUYyDFQG11FE50M6px3wvrVx00A0milkpo"
-          );
-          this.elements = this.stripe.elements();
 
-          this.cardNumberElement = this.elements.create("cardNumber", {
-            placeholder: "Card Number",
-          });
-          this.cardNumberElement.mount("#card-number");
-
-          this.cardExpiryElement = this.elements.create("cardExpiry", {
-            placeholder: "MM / YY",
-          });
-          this.cardExpiryElement.mount("#card-expiry");
-
-          this.cardCvcElement = this.elements.create("cardCvc", {
-            placeholder: "CVC",
-          });
-          this.cardCvcElement.mount("#card-cvc");
-        } else {
-          console.error("Stripe is not available");
+        const token = localStorage.getItem("token");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+          axios.get('/api/user-subsciption',{headers});
         }
-      }
     },
   };
   </script>

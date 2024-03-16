@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResendActivationEmailController;
 use App\Http\Controllers\Auth\ResetPasswordLinkController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
+use App\Http\Controllers\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Plans\PlanController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Models\Plan;
@@ -47,7 +48,7 @@ Route::group(['middleware'=>'auth:api'],function () {
    Route::get('/refresh',RefreshTokenController::class)->name('refresh');
    Route::get('/logout',LogoutController::class)->name('logout');
    Route::get('/check-subcription',UserSubscriptionVerifyController::class)->name('user.subscription');
-
+   Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan');
    /** END APIS OF AUTHENTICATION  */
 
    /**  PLAN CONTROLLER  */

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('plan_uuid');
+            $table->foreignUuid('plan_uuid');
             $table->timestamps();
         });
     }

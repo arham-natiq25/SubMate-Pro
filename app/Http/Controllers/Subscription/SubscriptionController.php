@@ -27,6 +27,8 @@ class SubscriptionController extends Controller
 
         $plan = Plan::where('id',$request->plan['id'])->first();
 
+        $planUuid = $request->plan['id'];
+
         $payment = new StripePaymentGateway();
 
         $result = $payment->charge($request,$user);
@@ -35,7 +37,7 @@ class SubscriptionController extends Controller
         if ($result->isSuccessful()){
             $subscription = Subscription::create([
                 'user_id' => $user->id,
-                'plan_uuid'=>$plan->id,
+                'plan_uuid'=>$planUuid,
                 'type'=>$type
             ]);
             $endDate = Carbon::now();
