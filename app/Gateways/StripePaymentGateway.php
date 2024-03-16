@@ -18,7 +18,11 @@ class StripePaymentGateway implements PaymentGateway
 
        if ($request->method===0) {
         $paymentMethodId = $request->paymentMethodId;
-    }
+        }
+        elseif ($request->method===1) {
+            $paymentMethodId= $request->card['payment_method_id'];
+            $stripeCustomer=$request->card['customer_profile_id'];
+        }
         $paymentMethod = PaymentMethod::retrieve($paymentMethodId);
 
         $cardType = $paymentMethod->card->brand;

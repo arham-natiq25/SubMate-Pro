@@ -9,8 +9,10 @@ use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResendActivationEmailController;
 use App\Http\Controllers\Auth\ResetPasswordLinkController;
+use App\Http\Controllers\Backend\BuySubscriptionForAnotherUser;
+use App\Http\Controllers\Backend\GetCustomerCardsController;
+use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
-use App\Http\Controllers\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Plans\PlanController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Models\Plan;
@@ -49,6 +51,7 @@ Route::group(['middleware'=>'auth:api'],function () {
    Route::get('/logout',LogoutController::class)->name('logout');
    Route::get('/check-subcription',UserSubscriptionVerifyController::class)->name('user.subscription');
    Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan');
+   Route::get('/customer-cards',GetCustomerCardsController::class)->name('customer-cards');
    /** END APIS OF AUTHENTICATION  */
 
    /**  PLAN CONTROLLER  */
@@ -59,6 +62,7 @@ Route::group(['middleware'=>'auth:api'],function () {
 });
 Route::get('/plans', [PlanController::class,'index']);
 
-   /** END PLAN CONTROLLER  */
+/** END PLAN CONTROLLER  */
 
+Route::post('/member/buy-subscription',BuySubscriptionForAnotherUser::class)->name('member.subscription');
    Route::post('/buy-subscription',SubscriptionController::class)->name('subscription');
