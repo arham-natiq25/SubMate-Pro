@@ -38,7 +38,8 @@ class RegisterController extends Controller
             if ($mail) {
                 return response()->json([
                     'status'=>true,
-                    'message'=>"Mail Send successfully"
+                    'message'=>"Your account created successfully. Please check your email.
+                    "
                 ]);
             }else{
                 return response()->json([

@@ -19,7 +19,10 @@ class GetCustomerCardsController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
 
-        $cards = CustomerProfile::where('id',$user->id)->get();
+        $userId = $user->id;
+
+        $cards = CustomerProfile::where('user_id',$userId)->get();
+
 
         if ($cards){
             return response()->json([
