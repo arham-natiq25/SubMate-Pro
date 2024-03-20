@@ -51,7 +51,7 @@ Route::group(['middleware'=>'auth:api'],function () {
    Route::get('/logout',LogoutController::class)->name('logout');
    Route::get('/check-subcription',UserSubscriptionVerifyController::class)->name('user.subscription');
    Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan');
-   Route::get('/customer-cards',GetCustomerCardsController::class)->name('customer-cards');
+   Route::get('/customer-cards',GetCustomerCardsController::class)->name('customer-cards')->middleware('has_sub');
    /** END APIS OF AUTHENTICATION  */
 
    /**  PLAN CONTROLLER  */
@@ -60,9 +60,10 @@ Route::group(['middleware'=>'auth:api'],function () {
    Route::post('/plans',[PlanController::class,'storePlan'])->name('plan.store');
    Route::get('/plans/{id}/edit',[PlanController::class,'editPlan'])->name('plan.edit');
 });
+
 Route::get('/plans', [PlanController::class,'index']);
 
 /** END PLAN CONTROLLER  */
 
-Route::post('/member/buy-subscription',BuySubscriptionForAnotherUser::class)->name('member.subscription');
+Route::post('/member/buy-subscription',BuySubscriptionForAnotherUser::class)->name('member.subscription')->middleware('has_sub');
    Route::post('/buy-subscription',SubscriptionController::class)->name('subscription');
