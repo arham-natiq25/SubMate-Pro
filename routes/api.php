@@ -46,11 +46,11 @@ Route::post('/resend/email', ResendActivationEmailController::class)->name('rese
 
 
 Route::group(['middleware'=>'auth:api'],function () {
-   Route::get('/profile',ProfileController::class)->name('profile');
-   Route::get('/refresh',RefreshTokenController::class)->name('refresh');
+   Route::get('/profile',ProfileController::class)->name('profile')->middleware('has_sub');
+   Route::get('/refresh',RefreshTokenController::class)->name('refresh')->middleware('has_sub');
    Route::get('/logout',LogoutController::class)->name('logout');
    Route::get('/check-subcription',UserSubscriptionVerifyController::class)->name('user.subscription');
-   Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan');
+   Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan')->middleware('has_sub');
    Route::get('/customer-cards',GetCustomerCardsController::class)->name('customer-cards')->middleware('has_sub');
    /** END APIS OF AUTHENTICATION  */
 
