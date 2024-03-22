@@ -27,28 +27,45 @@ class SubscriptionController extends Controller
 
         $plan = Plan::where('id',$request->plan['id'])->first();
 
+
+
         $planUuid = $request->plan['id'];
+
 
         $payment = new StripePaymentGateway();
 
         $result = $payment->charge($request,$user);
 
-        $type = ($request->type == 0) ? 0 : 1;
-        if ($result->isSuccessful()){
+        $type = $request->type;
+
+        if ($result->isSuccessful()) {
             $subscription = Subscription::create([
                 'user_id' => $user->id,
                 'plan_uuid'=>$planUuid,
                 'type'=>$type
             ]);
+
             $endDate = Carbon::now();
-            if ($type === 0) {
+            if ($type == 0) {
                 // If type is 0, add 30 days to the current date
                 $endDate->addDays(30);
             } else {
                 // If type is 1, add 365 days to the current date
-                $endDate->addDays(365);
-            }
+                $currentSubscription = UserSubscription::where('user_id', $user->id)
+                    ->where('end_date', '>=', Carbon::now())
+                    ->orderBy('end_date', 'desc')
+                    ->first();
 
+                if ($currentSubscription) {
+                    $currentEndDate = Carbon::createFromFormat('Y-m-d', $currentSubscription->end_date);
+                    $remainingDays = $currentEndDate->diffInDays(Carbon::now());
+                    $endDate = Carbon::now()->addDays(365 + $remainingDays);
+
+
+                } else {
+                    $endDate = Carbon::now()->addDays(365);
+                }
+            }
 
             $UserSubscription = UserSubscription::create([
                 'subscription_id'=>$subscription->id,
