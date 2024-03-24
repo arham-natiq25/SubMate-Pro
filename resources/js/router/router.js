@@ -9,6 +9,7 @@ import Activation from '../components/auth/Activation.vue';
 import Plans from '../components/views/Plans.vue';
 import NotFound from '../components/views/NotFound.vue'; // Import your custom 404 component
 import TeamMember from '../components/views/TeamMember.vue';
+import AllUsers from '../components/views/AllUsers.vue';
 const routes = [
 
     // AUTH ROUTES
@@ -77,6 +78,10 @@ const routes = [
             title: 'Plans',
             //requiresAuth: true, // Add this to require authentication for this route
         },
+    },
+    {
+        path:'/all-users',
+        component:AllUsers,
     },
      // Wildcard route for undefined routes
     {

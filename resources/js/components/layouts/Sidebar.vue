@@ -7,6 +7,12 @@
           <span>Dashboard</span>
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link class="nav-link collapsed" to="/all-users">
+          <i class="bi bi-grid"></i>
+          <span>All Users</span>
+        </router-link>
+      </li>
       <!-- End Dashboard Nav -->
 
       <!-- End Profile Page Nav -->

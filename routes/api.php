@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ResetPasswordLinkController;
 use App\Http\Controllers\Backend\BuySubscriptionForAnotherUser;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
+use App\Http\Controllers\Backend\GetUsersSubscriptionController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
 use App\Http\Controllers\Plans\PlanController;
 use App\Http\Controllers\Subscription\SubscriptionController;
@@ -37,33 +38,34 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 /** APIS OF AUTHENTICATION */
-Route::post('/register',RegisterController::class)->name('register');
-Route::post('/login',LoginController::class)->name('login');
+Route::post('/register', RegisterController::class)->name('register');
+Route::post('/login', LoginController::class)->name('login');
 Route::get('/email/active/{token}', EmailActivationController::class)->name('email.active');
 Route::post('/reset-password', ResetPasswordLinkController::class)->name('reset-user-password');
-Route::post('/update-password/{token}',PasswordUpdateController::class)->name('password.update');
+Route::post('/update-password/{token}', PasswordUpdateController::class)->name('password.update');
 Route::post('/resend/email', ResendActivationEmailController::class)->name('resend-email');
 
 
-Route::group(['middleware'=>'auth:api'],function () {
-   Route::get('/profile',ProfileController::class)->name('profile')->middleware('has_sub');
-   Route::get('/refresh',RefreshTokenController::class)->name('refresh')->middleware('has_sub');
-   Route::get('/logout',LogoutController::class)->name('logout');
-   Route::get('/check-subcription',UserSubscriptionVerifyController::class)->name('user.subscription');
-   Route::get('/user-subsciption',GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan')->middleware('has_sub');
-   Route::get('/customer-cards',GetCustomerCardsController::class)->name('customer-cards')->middleware('has_sub');
-   /** END APIS OF AUTHENTICATION  */
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/profile', ProfileController::class)->name('profile')->middleware('has_sub');
+    Route::get('/refresh', RefreshTokenController::class)->name('refresh')->middleware('has_sub');
+    Route::get('/logout', LogoutController::class)->name('logout');
+    Route::get('/check-subcription', UserSubscriptionVerifyController::class)->name('user.subscription');
+    Route::get('/user-subsciption', GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan')->middleware('has_sub');
+    Route::get('/customer-cards', GetCustomerCardsController::class)->name('customer-cards')->middleware('has_sub');
+    /** END APIS OF AUTHENTICATION  */
 
-   /**  PLAN CONTROLLER  */
-   Route::post('/plans/update/{id}',[PlanController::class,'updatePlan'])->name('plan.store');
-   Route::delete('/plans/delete/{id}',[PlanController::class,'deletePlan'])->name('plan.delete');
-   Route::post('/plans',[PlanController::class,'storePlan'])->name('plan.store');
-   Route::get('/plans/{id}/edit',[PlanController::class,'editPlan'])->name('plan.edit');
+    /**  PLAN CONTROLLER  */
+    Route::post('/plans/update/{id}', [PlanController::class, 'updatePlan'])->name('plan.store');
+    Route::delete('/plans/delete/{id}', [PlanController::class, 'deletePlan'])->name('plan.delete');
+    Route::post('/plans', [PlanController::class, 'storePlan'])->name('plan.store');
+    Route::get('/plans/{id}/edit', [PlanController::class, 'editPlan'])->name('plan.edit');
 });
 
-Route::get('/plans', [PlanController::class,'index']);
+Route::get('/plans', [PlanController::class, 'index']);
 
 /** END PLAN CONTROLLER  */
 
-Route::post('/member/buy-subscription',BuySubscriptionForAnotherUser::class)->name('member.subscription')->middleware('has_sub');
-   Route::post('/buy-subscription',SubscriptionController::class)->name('subscription');
+Route::post('/member/buy-subscription', BuySubscriptionForAnotherUser::class)->name('member.subscription')->middleware('has_sub');
+Route::post('/buy-subscription', SubscriptionController::class)->name('subscription');
+Route::get('/all-users', GetUsersSubscriptionController::class)->name('all-user-subscriptions');
