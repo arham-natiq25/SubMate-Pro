@@ -47,6 +47,11 @@ class BuySubscriptionForAnotherUser extends Controller
             $user = User::where('email',$request->NewUserEmail)->first();
 
 
+            $subscription = Subscription::create([
+                'user_id' => $user->id,
+                'plan_uuid'=>$request->plan['id'],
+                'type'=>$type
+            ]);
             $UserSubscription = UserSubscription::create([
                 'subscription_id'=>$subscription->id,
                 'user_id'=>$user->id,

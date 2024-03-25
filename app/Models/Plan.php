@@ -14,6 +14,9 @@ class Plan extends Model
 
     protected $guarded =[];
 
+    public function subscriptions() {
+        return $this->hasMany(UserSubscription::class);
+    }
 
     // protected $fillable = [
     //     'uuid', // make sure 'uuid' is in your fillable array

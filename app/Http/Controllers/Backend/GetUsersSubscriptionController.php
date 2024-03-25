@@ -16,6 +16,8 @@ class GetUsersSubscriptionController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $users = User::with('subscriptions.subscription.plan')->get();
 
+        return response()->json($users);
     }
 }
