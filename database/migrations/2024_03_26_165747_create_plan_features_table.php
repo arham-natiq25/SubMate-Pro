@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('feature_id')->references('id')->on('features');
             $table->foreignUuid('plan_uuid');
             $table->string('limit_type');
-            $table->integer('limit_size');
+            $table->integer('limit_value');
             $table->timestamps();
         });
     }

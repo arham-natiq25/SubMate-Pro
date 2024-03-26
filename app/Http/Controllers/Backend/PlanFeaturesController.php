@@ -3,83 +3,72 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlanFeature;
 use Illuminate\Http\Request;
 
 class PlanFeaturesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+       $plan_features = PlanFeature::all();
+
+       return response()->json([
+        'features' => $plan_features
+    ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+      $plan_features = $request->validate([
+        'feature_id'=>'required|integer',
+        'plan_uuid'=>'required',
+        'limit_type'=>'required|string',
+        'limit_value'=>'required|integer'
+      ]);
+
+      PlanFeature::create($plan_features);
+
+      return response()->json([
+        'status' => true,
+        'message' => 'Plan Feature created Successfully'
+    ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $plan_features = $request->validate([
+            'feature_id'=>'required|integer',
+            'plan_uuid'=>'required',
+            'limit_type'=>'required|string',
+            'limit_value'=>'required|integer'
+          ]);
+
+          PlanFeature::where('id',$id)->update($plan_features);
+
+          return response()->json([
+            'status' => true,
+            'message' => 'Plan Updated created Successfully'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $plan_feature = PlanFeature::findOrFail($id);
+
+        $delete = $plan_feature->delete();
+
+        if ($delete) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Plan Feature Deleted Successfully'
+            ]);
+        } else {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong'
+            ]);
+        }
     }
 }
