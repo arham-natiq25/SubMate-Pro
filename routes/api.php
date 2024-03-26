@@ -10,9 +10,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResendActivationEmailController;
 use App\Http\Controllers\Auth\ResetPasswordLinkController;
 use App\Http\Controllers\Backend\BuySubscriptionForAnotherUser;
+use App\Http\Controllers\Backend\Features\FeaturesController;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Backend\GetUsersSubscriptionController;
+use App\Http\Controllers\Backend\PlanFeaturesController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
 use App\Http\Controllers\Plans\PlanController;
 use App\Http\Controllers\Subscription\SubscriptionController;
@@ -20,23 +22,10 @@ use App\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-
 /** APIS OF AUTHENTICATION */
 Route::post('/register', RegisterController::class)->name('register');
 Route::post('/login', LoginController::class)->name('login');
@@ -66,6 +55,28 @@ Route::get('/plans', [PlanController::class, 'index']);
 
 /** END PLAN CONTROLLER  */
 
+
+
+/** BUY SUBSCRIPTION FOR ANOTHER USER ROUTE */
 Route::post('/member/buy-subscription', BuySubscriptionForAnotherUser::class)->name('member.subscription')->middleware('has_sub');
+/** END BUY SUBSCRIPTION FOR ANOTHER USER ROUTE */
+
+
+
+
+/** BUY SUBSCRIPTION  ROUTE */
 Route::post('/buy-subscription', SubscriptionController::class)->name('subscription');
+/** END BUY SUBSCRIPTION  ROUTE */
+
+/** GET ALL SUBSCRIPTIONS ROUTE */
 Route::get('/all-users', GetUsersSubscriptionController::class)->name('all-user-subscriptions');
+/** END GET ALL SUBSCRIPTIONS ROUTE */
+
+
+
+/** FEATURES AND PLAN FEATURES ROUTE */
+
+Route::resource('/features', FeaturesController::class );
+Route::resource('/plan-features', PlanFeaturesController::class );
+
+/** END  FEATURES AND PLAN FEATURES ROUTE */
