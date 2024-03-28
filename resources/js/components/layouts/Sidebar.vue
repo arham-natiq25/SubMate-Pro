@@ -13,6 +13,18 @@
           <span>All Users</span>
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link class="nav-link collapsed" to="/features">
+          <i class="bi bi-grid"></i>
+          <span>Features</span>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link collapsed" to="/plan-features">
+          <i class="bi bi-grid"></i>
+          <span>Plan Features</span>
+        </router-link>
+      </li>
       <!-- End Dashboard Nav -->
 
       <!-- End Profile Page Nav -->

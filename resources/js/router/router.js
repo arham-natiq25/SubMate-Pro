@@ -10,6 +10,8 @@ import Plans from '../components/views/Plans.vue';
 import NotFound from '../components/views/NotFound.vue'; // Import your custom 404 component
 import TeamMember from '../components/views/TeamMember.vue';
 import AllUsers from '../components/views/AllUsers.vue';
+import Features from '../components/views/Features.vue';
+import Plan_Features from '../components/views/Plan_Features.vue';
 const routes = [
 
     // AUTH ROUTES
@@ -82,6 +84,14 @@ const routes = [
     {
         path:'/all-users',
         component:AllUsers,
+    },
+    {
+        path:'/features',
+        component:Features,
+    },
+    {
+        path:'/plan-features',
+        component:Plan_Features,
     },
      // Wildcard route for undefined routes
     {

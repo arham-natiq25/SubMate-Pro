@@ -11,10 +11,10 @@ class PlanFeaturesController extends Controller
 
     public function index()
     {
-       $plan_features = PlanFeature::all();
+       $plan_features =  PlanFeature::with('plan', 'feature')->get();
 
        return response()->json([
-        'features' => $plan_features
+        'plan_features' => $plan_features
     ]);
     }
 
@@ -48,13 +48,15 @@ class PlanFeaturesController extends Controller
 
           return response()->json([
             'status' => true,
-            'message' => 'Plan Updated created Successfully'
+            'message' => 'Plan Feature Updated  Successfully'
         ]);
     }
 
     public function destroy($id)
     {
+
         $plan_feature = PlanFeature::findOrFail($id);
+
 
         $delete = $plan_feature->delete();
 

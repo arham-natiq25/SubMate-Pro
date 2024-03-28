@@ -19,6 +19,7 @@
                           <th>#</th>
                           <th>User Name</th>
                           <th>Plan</th>
+                          <th>Subscribed on</th>
                           <th>Expiry Date</th>
                           <th>Days Left</th>
                           <th>Action</th>
@@ -30,6 +31,7 @@
                           <th scope="row">{{ index + 1 }}</th>
                           <td>{{ user.first_name }} {{ user.last_name }}</td>
                           <td>{{ user.subscriptions[0].subscription.plan.name }}({{ getSubscriptionType(user.subscriptions[0].subscription.type) }})</td>
+                          <td>{{ user.subscriptions[0].start_date }}</td>
                           <td>{{ user.subscriptions[0].end_date }}</td>
                           <td>{{ calculateDaysLeft(user.subscriptions[0].start_date, user.subscriptions[0].end_date) }}</td>
                           <td>
@@ -80,7 +82,7 @@
           });
       },
       calculateDaysLeft(startDate, endDate) {
-        const start = new Date(startDate);
+        const start = new Date();
         const end = new Date(endDate);
         const diffTime = Math.abs(end - start);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
