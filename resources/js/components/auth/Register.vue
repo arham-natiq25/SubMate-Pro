@@ -60,8 +60,11 @@
             </div>
 
             <div class="col-12">
-              <button class="btn btn-primary w-100" type="submit">Create Account</button>
-            </div>
+                <button class="btn btn-primary w-100" type="submit" :disabled="loading">
+                  <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span v-else>Create Account</span>
+                </button>
+              </div>
 
             <div class="col-12">
               <p class="small mb-0">Already have an account? <router-link to="/login">Login</router-link></p>
@@ -92,10 +95,12 @@
         errors: {},
         successMessage: '',
         errorMessage: '',
+        loading: false, // Initialize loading state
       };
     },
     methods: {
       register() {
+        this.loading = true;
         // Reset messages and errors
         this.successMessage = '';
         this.errorMessage = '';
@@ -137,7 +142,10 @@
             }
             // Display error message to the user
             this.errorMessage = error.response.data.message;
-          });
+          }) .finally(() => {
+          // Set loading to false after the request is completed
+          this.loading = false;
+        });
       },
       clearMessages() {
         // Clear success and error messages

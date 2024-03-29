@@ -24,6 +24,14 @@ const routes = [
         },
     },
     {
+        path:'/',
+        component:Login,
+        meta: {
+            title: 'Login',
+            guest: true,
+        },
+    },
+    {
         path:'/register',
         component:Register,
         meta: {
