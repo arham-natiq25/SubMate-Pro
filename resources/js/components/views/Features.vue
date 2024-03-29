@@ -92,22 +92,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="form-group">
-                            <label for="slug" class="fw-bold">Enter Slug :</label>
-                            <input
-                              type="text"
-                              name="slug"
-                              class="form-control"
-                              v-model="newFeatureSlug"
-                            />
-                            <div v-if="errors.slug" class="text-danger text-sm">
-                              {{ errors.slug[0] }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+
                       <div class="row">
                         <div class="col-lg-12">
                           <div class="form-group">
@@ -165,7 +150,6 @@ export default {
       AllFeatures: [],
       newFeatureName: "",
       newFeatureDescription: "",
-      newFeatureSlug: "",
       successMessage: "",
       errorMessage: {},
       errors: {},
@@ -196,7 +180,6 @@ export default {
       const newFeature = {
           name: this.newFeatureName,
           description: this.newFeatureDescription,
-          slug: this.newFeatureSlug,
         };
         let method = axios.post;
             let url = "/api/features";
@@ -245,7 +228,6 @@ export default {
     editData(data) {
           this.newFeatureName = data.name;
           this.newFeatureDescription = data.description;
-          this.newFeatureSlug = data.slug;
 
           this.temp_id = data.id
           this.isEditing=true

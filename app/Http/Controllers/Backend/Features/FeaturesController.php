@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Features;
 use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class FeaturesController extends Controller
 {
@@ -22,8 +23,13 @@ class FeaturesController extends Controller
         $feature = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
-            'slug' => 'required'
+
         ]);
+
+        $slug = Str::slug($request->name);
+
+        $feature['slug'] =  $slug;
+
 
         Feature::create($feature);
 
@@ -39,7 +45,6 @@ class FeaturesController extends Controller
         $feature = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
-            'slug' => 'required'
         ]);
 
         $updated = Feature::where('id', $id)->update($feature);
