@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\GetUsersSubscriptionController;
 use App\Http\Controllers\Backend\PlanFeaturesController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
 use App\Http\Controllers\Plans\PlanController;
+use App\Http\Controllers\Stripe\GetPaymentAPIKeyController;
 use App\Http\Controllers\Subscription\SubscriptionController;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/check-subcription', UserSubscriptionVerifyController::class)->name('user.subscription');
     Route::get('/user-subsciption', GetLoggedInUserSubscriptionPlan::class)->name('subcribed-plan')->middleware('has_sub');
     Route::get('/customer-cards', GetCustomerCardsController::class)->name('customer-cards')->middleware('has_sub');
+    Route::get('/payment-key',GetPaymentAPIKeyController::class)->name('payment-key');
     /** END APIS OF AUTHENTICATION  */
 
     /**  PLAN CONTROLLER  */

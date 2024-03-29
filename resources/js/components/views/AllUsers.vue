@@ -14,32 +14,37 @@
                   <h5 class="card-title">Subscriptions</h5>
                   <div class="col-12">
                     <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>User Name</th>
-                          <th>Plan</th>
-                          <th>Subscribed on</th>
-                          <th>Expiry Date</th>
-                          <th>Days Left</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Iterate over subscriptions and populate table rows -->
-                        <tr v-for="(user, index) in users" :key="user.id">
-                          <th scope="row">{{ index + 1 }}</th>
-                          <td>{{ user.first_name }} {{ user.last_name }}</td>
-                          <td>{{ user.subscriptions[0].subscription.plan.name }}({{ getSubscriptionType(user.subscriptions[0].subscription.type) }})</td>
-                          <td>{{ user.subscriptions[0].start_date }}</td>
-                          <td>{{ user.subscriptions[0].end_date }}</td>
-                          <td>{{ calculateDaysLeft(user.subscriptions[0].start_date, user.subscriptions[0].end_date) }}</td>
-                          <td>
-                            <button class="btn btn-success btn-sm mx-2">Renew Subscription</button>
-                            <button class="btn btn-warning btn-sm mx-2">Expiration Subscription</button>
-                          </td>
-                        </tr>
-                      </tbody>
+                        <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>User Name</th>
+                              <th>Plan</th>
+                              <th>Subscribed on</th>
+                              <th>Expiry Date</th>
+                              <th>Days Left</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- Iterate over subscriptions and populate table rows -->
+                            <template v-for="(user, index) in users">
+                              <tr v-for="(subscription) in user.subscriptions" :key="subscription.id">
+                                <!-- Iterate over each subscription -->
+                                <td scope="row">{{ index + 1 }}</td>
+                                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <td>{{ subscription.subscription.plan.name }} ({{ getSubscriptionType(subscription.subscription.type) }})</td>
+                                <td>{{ subscription.start_date }}</td>
+                                <td>{{ subscription.end_date }}</td>
+                                <td>{{ calculateDaysLeft(subscription.start_date, subscription.end_date) }}</td>
+                                <td>
+                                  <button class="btn btn-success btn-sm mx-2">Renew Subscription</button>
+                                  <button class="btn btn-warning btn-sm mx-2">Expiration Subscription</button>
+                                </td>
+                              </tr>
+
+                            </template>
+                          </tbody>
+
                     </table>
                   </div>
                 </div>

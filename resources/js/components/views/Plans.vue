@@ -164,6 +164,7 @@
         showPlans: true,
         showPayment: false,
         loading: false,
+        key:null
       };
     },
     methods: {
@@ -201,7 +202,7 @@
       loadStripe() {
         if (window.Stripe) {
           this.stripe = window.Stripe(
-            "pk_test_51NUU03Emu0Ala7lxKFLz0kgK8mfOVQr99wlJMIDW39xzneQ0B6Zb2x9irWjjNuldkUYyDFQG11FE50M6px3wvrVx00A0milkpo"
+            this.key
           );
           this.elements = this.stripe.elements();
 
@@ -291,9 +292,21 @@
         // Clear success and error messages
         this.successMessage = '';
       },
+      getPaymentkey()
+      {
+        const token = localStorage.getItem("token");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        axios.get('/api/payment-key',{headers}).then((res)=>{
+            this.key = res.data.stripe_pk
+        });
+      }
     },
     mounted() {
+        this.getPaymentkey();
       this.fetchPlans();
+
     },
   };
   </script>

@@ -143,10 +143,12 @@
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">
-                      Create Account
+                    <button class="btn btn-primary w-100" type="submit" :disabled="loading">
+                      <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span v-else>Create Account</span>
                     </button>
                   </div>
+
                 </form>
               </div>
             </div>
@@ -232,6 +234,7 @@ export default {
       PaymentOption: false,
       Front: true,
       emailofRegisteredUser:null,
+      loading:false
     };
   },
   mounted() {
@@ -268,6 +271,7 @@ export default {
       return message.toLowerCase().includes("validation");
     },
     register() {
+        this.loading = true;
       // Reset messages and errors
       this.successMessage = "";
       this.errorMessage = "";
@@ -312,7 +316,11 @@ export default {
           }
           // Display error message to the user
           this.errorMessage = error.response.data.message;
-        });
+        }).finally(() => {
+          // Set loading to false after the request is completed
+          this.loading = false;
+        })
+        ;
     },
     clearMessages() {
       // Clear success and error messages
