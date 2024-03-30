@@ -50,7 +50,7 @@
                             <td>{{ index + 1 }}</td>
                             <td>{{ planFeature.feature.name }}</td>
                             <td>{{ planFeature.plan.name }}</td>
-                            <td>{{ planFeature.limit_type }}</td>
+                            <td>{{ planFeature.limit_type===0 ? 'Count' : 'Size' }}</td>
                             <td>{{ planFeature.limit_value }}</td>
                             <td>
                               <button class="btn btn-danger mx-1" @click="deletePlanFeature(planFeature.id)"><i class="bi bi-trash"></i></button>
@@ -139,14 +139,17 @@
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="fw-bold">Limit Type</label>
-                            <input type="text" class="form-control" v-model="limitType" name="limit_type">
-                            <div v-if="errors.limit_type" class="text-danger text-sm">
+                            <div class="form-group">
+                              <label class="fw-bold">Limit Type</label>
+                              <select class="form-select" v-model="limitType" name="limit_type">
+                                <option value="1">Size</option>
+                                <option value="0">Count</option>
+                              </select>
+                              <div v-if="errors.limit_type" class="text-danger text-sm">
                                 {{ errors.limit_type[0] }}
                               </div>
+                            </div>
                           </div>
-                        </div>
                         <div class="col-lg-6">
                           <div class="form-group">
                             <label class="fw-bold">Limit Value</label>
