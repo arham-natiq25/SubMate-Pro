@@ -11,6 +11,11 @@ class Feature extends Model
 
     protected $guarded =[];
 
+    public function access()
+    {
+        return $this->hasOne(FeatureAccess::class);
+    }
+
     public function planFeatures()
     {
         return $this->hasMany(PlanFeature::class, 'feature_id');

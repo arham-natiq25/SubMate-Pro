@@ -12,6 +12,7 @@ import TeamMember from '../components/views/TeamMember.vue';
 import AllUsers from '../components/views/AllUsers.vue';
 import Features from '../components/views/Features.vue';
 import Plan_Features from '../components/views/Plan_Features.vue';
+import Features_Access from '../components/views/FeatureAccess.vue';
 const routes = [
 
     // AUTH ROUTES
@@ -100,6 +101,10 @@ const routes = [
     {
         path:'/plan-features',
         component:Plan_Features,
+    },
+    {
+        path:'/features-access',
+        component:Features_Access,
     },
      // Wildcard route for undefined routes
     {

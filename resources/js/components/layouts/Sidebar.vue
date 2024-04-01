@@ -20,6 +20,12 @@
         </router-link>
       </li>
       <li class="nav-item">
+        <router-link class="nav-link collapsed" to="/features-access">
+          <i class="bi bi-grid"></i>
+          <span>Features Access</span>
+        </router-link>
+      </li>
+      <li class="nav-item">
         <router-link class="nav-link collapsed" to="/plan-features">
           <i class="bi bi-grid"></i>
           <span>Plan Features</span>
