@@ -40,7 +40,7 @@ class PlanFeaturesController extends Controller
         $plan_features = $request->validate([
             'feature_id'=>'required|integer',
             'plan_uuid'=>'required',
-            'limit_type'=>'required|string',
+            'limit_type'=>'required',
             'limit_value'=>'required|integer'
           ]);
 

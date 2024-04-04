@@ -18,6 +18,10 @@ class Plan extends Model
         return $this->hasMany(UserSubscription::class);
     }
 
+    public function plan_feature() {
+        return $this->hasMany(PlanFeature::class,'plan_uuid','id');
+    }
+
     // protected $fillable = [
     //     'uuid', // make sure 'uuid' is in your fillable array
     //     'name',

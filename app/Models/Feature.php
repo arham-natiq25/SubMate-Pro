@@ -11,10 +11,6 @@ class Feature extends Model
 
     protected $guarded =[];
 
-    public function access()
-    {
-        return $this->hasOne(FeatureAccess::class);
-    }
 
     public function planFeatures()
     {

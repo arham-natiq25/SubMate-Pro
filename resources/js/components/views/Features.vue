@@ -165,6 +165,8 @@ export default {
   methods: {
     Form() {
       (this.showEntryForm = true), (this.showAllFeatures = false);
+      this.newFeatureName="",
+      this.newFeatureDescription=""
     },
     Features() {
       (this.showEntryForm = false), (this.showAllFeatures = true);

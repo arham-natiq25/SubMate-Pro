@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\BuySubscriptionForAnotherUser;
 use App\Http\Controllers\Backend\FeatureAccessController;
 use App\Http\Controllers\Backend\Features\FeaturesController;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
+use App\Http\Controllers\Backend\GetLoggedInUserPlanFeatures;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Backend\GetUsersSubscriptionController;
 use App\Http\Controllers\Backend\PlanFeaturesController;
@@ -81,6 +82,5 @@ Route::get('/all-users', GetUsersSubscriptionController::class)->name('all-user-
 
 Route::resource('/features', FeaturesController::class );
 Route::resource('/plan-features', PlanFeaturesController::class );
-Route::resource('/features-access', FeatureAccessController::class);
-
+Route::get('/features-access',GetLoggedInUserPlanFeatures::class);
 /** END  FEATURES AND PLAN FEATURES ROUTE */
