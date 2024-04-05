@@ -5,6 +5,19 @@
         <h1>Team Members</h1>
       </div>
       <!-- End Page Title -->
+      <div
+      v-if="successMessage"
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      {{ successMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        @click="clearMessages"
+        aria-label="Close"
+      ></button>
+    </div>
 
       <section class="section">
         <div class="row" v-if="Front">
@@ -19,19 +32,37 @@
               </div>
             </div>
           </div>
-        </div>
-        <div
-          v-if="successMessage"
-          class="alert alert-success alert-dismissible fade show"
-          role="alert"
-        >
-          {{ successMessage }}
-          <button
-            type="button"
-            class="btn-close"
-            @click="clearMessages"
-            aria-label="Close"
-          ></button>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Added By</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Days Left</th>
+                    <th>Plan Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Iterate over teamMembers and populate table rows -->
+                  <tr v-for="(member, index) in teamMembers" :key="member.id">
+
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ member.user.first_name }} {{ member.user.last_name }}{{ loggedInUser.id === member.user_id  ? '(You)' : '' }}</td>
+                    <td>{{ loggedInUser.first_name  }} {{ loggedInUser.last_name }}</td>
+                    <td>{{ member.start_date }}</td>
+                    <td>{{ member.end_date }}</td>
+                    <td>{{ calculateDaysLeft(member.start_date, member.end_date) }}</td>
+
+                    <td>{{ member.subscription.plan.name }}({{member.subscription.type === 0 ? 'Monthly' : 'Yearly'}})</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+         </div>
         </div>
 
         <div class="row" v-if="RegistrationForm">
@@ -155,7 +186,7 @@
           </div>
         </div>
 
-        <div class="row"></div>
+    <div class="row"></div>
 
         <div class="row" v-if="PaymentOption">
           <div class="offset-md-2 col-md-8">
@@ -201,6 +232,8 @@
             </div>
           </div>
         </div>
+
+
       </section>
     </main>
     <!-- End #main -->
@@ -234,12 +267,15 @@ export default {
       PaymentOption: false,
       Front: true,
       emailofRegisteredUser:null,
-      loading:false
+      loading:false,
+      teamMembers:[],
+      loggedInUser:{}
     };
   },
   mounted() {
     this.getUserSubscribedPlan();
     this.getCustomerCards();
+    this.getUserSubscriptions();
   },
   methods: {
     showRegistration() {
@@ -347,6 +383,7 @@ export default {
                 this.emailofRegisteredUser="";
                 this.PaymentOption=false;
                 this.Front=true;
+                this.getUserSubscriptions()
 
         }).catch((error) => {
           // Handle error, show error messages, etc.
@@ -361,7 +398,29 @@ export default {
           // Display error message to the user
           this.errorMessage = error.response.data.message;
         });
-    }
+    },
+    getUserSubscriptions() {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      axios.get("/api/team-members", { headers }).then((res) => {
+        if (res.data) {
+          this.teamMembers = res.data.team_members;
+          this.loggedInUser = res.data.logged_in_user
+        }
+      }).catch((error) => {
+        console.error(error);
+        // Handle error, show error messages, etc.
+      });
+    },
+    calculateDaysLeft(startDate, endDate) {
+        const start = new Date();
+        const end = new Date(endDate);
+        const diffTime = Math.abs(end - start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
   },
 };
 </script>

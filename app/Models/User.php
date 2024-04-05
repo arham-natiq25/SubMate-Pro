@@ -17,6 +17,12 @@ class User extends Authenticatable implements JWTSubject
     public function subscriptions() {
         return $this->hasMany(UserSubscription::class);
     }
+
+    public function addedUserSubscriptions()
+    {
+        return $this->hasMany(UserSubscription::class, 'added_by', 'id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

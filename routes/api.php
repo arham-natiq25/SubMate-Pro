@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\Features\FeaturesController;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
 use App\Http\Controllers\Backend\GetLoggedInUserPlanFeatures;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
+use App\Http\Controllers\Backend\GetLoggedInUserTeamMembers;
 use App\Http\Controllers\Backend\GetUsersSubscriptionController;
 use App\Http\Controllers\Backend\PlanFeaturesController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
@@ -84,3 +85,8 @@ Route::resource('/features', FeaturesController::class );
 Route::resource('/plan-features', PlanFeaturesController::class );
 Route::get('/features-access',GetLoggedInUserPlanFeatures::class);
 /** END  FEATURES AND PLAN FEATURES ROUTE */
+
+
+/** LOGGED IN USER TEAM MEMBERS */
+Route::get('/team-members',GetLoggedInUserTeamMembers::class);
+/** ENDLOGGED IN USER TEAM MEMBERS */
