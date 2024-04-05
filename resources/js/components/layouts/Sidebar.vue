@@ -14,6 +14,12 @@
         </router-link>
       </li>
       <li class="nav-item">
+        <router-link class="nav-link collapsed" to="/transaction-records">
+          <i class="bi bi-grid"></i>
+          <span>Transaction Record</span>
+        </router-link>
+      </li>
+      <li class="nav-item">
         <router-link class="nav-link collapsed" to="/features">
           <i class="bi bi-grid"></i>
           <span>Features</span>

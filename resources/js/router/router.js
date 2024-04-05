@@ -13,6 +13,7 @@ import AllUsers from '../components/views/AllUsers.vue';
 import Features from '../components/views/Features.vue';
 import Plan_Features from '../components/views/Plan_Features.vue';
 import Features_Access from '../components/views/FeatureAccess.vue';
+import Transactions from '../components/views/TransactionRecords.vue';
 const routes = [
 
     // AUTH ROUTES
@@ -105,6 +106,10 @@ const routes = [
     {
         path:'/features-access',
         component:Features_Access,
+    },
+    {
+        path:'/transaction-records',
+        component:Transactions,
     },
      // Wildcard route for undefined routes
     {

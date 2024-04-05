@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ResetPasswordLinkController;
 use App\Http\Controllers\Backend\BuySubscriptionForAnotherUser;
 use App\Http\Controllers\Backend\FeatureAccessController;
 use App\Http\Controllers\Backend\Features\FeaturesController;
+use App\Http\Controllers\Backend\GetAllTransactionRecords;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
 use App\Http\Controllers\Backend\GetLoggedInUserPlanFeatures;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
@@ -90,3 +91,8 @@ Route::get('/features-access',GetLoggedInUserPlanFeatures::class);
 /** LOGGED IN USER TEAM MEMBERS */
 Route::get('/team-members',GetLoggedInUserTeamMembers::class);
 /** ENDLOGGED IN USER TEAM MEMBERS */
+
+
+/** GET ALL TRANSACTION RECORDS*/
+Route::get('/transaction-records',GetAllTransactionRecords::class);
+/** END GET ALL TRANSACTION RECORDS*/
