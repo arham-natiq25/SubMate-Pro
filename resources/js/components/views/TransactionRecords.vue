@@ -3,7 +3,6 @@
       <main id="main" class="main">
         <div class="pagetitle">
           <h1>Transaction Records</h1>
-
         </div>
         <!-- End Page Title -->
 
@@ -20,27 +19,24 @@
                           <tr>
                             <th>#</th>
                             <th>User Name</th>
-                            <th>Trasaction ID</th>
+                            <th>Transaction ID</th>
                             <th>Price</th>
                             <th>Created At</th>
+                            <th>Payment Type</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <!-- Iterate over subscriptions and populate table rows -->
-                         <tr>
-                            <td>1</td>
-                            <td>Test</td>
-                            <td>2oj4hg</td>
-                            <td> $ 9.99</td>
-                            <td>12-2-2024</td>
-                            <td>
-                                <buttom class="btn btn-primary">
-                                    Refund
-                                </buttom>
-                            </td>
-                         </tr>
-                        </tbody>
+                            <tr v-for="(trx,index) in trx_records" :key="index">
+                                <td>{{ index+1 }}</td>
+                                <td>{{ trx.user.first_name }} {{ trx.user.last_name }}</td>
+                                <td>{{ trx.transaction_id }}</td>
+                                <td>$ {{ trx.payment }}</td>
+                                <td>{{ formatDate(trx.created_at) }}</td>
+                                <td>{{ trx.type_of_charge === 0 ? 'Charge' : 'Refund' }}</td>
+                                <td><button class="btn btn-sm btn-primary">Refund</button></td>
+                            </tr>
+                       </tbody>
                       </table>
                     </div>
                   </div>
@@ -53,12 +49,44 @@
       <!-- End #main -->
     </AppLayout>
   </template>
+
   <script>
+  import axios from 'axios';
   import AppLayout from "../layouts/AppLayout.vue";
 
   export default {
     components: {
       AppLayout,
+    },
+    data() {
+      return {
+        trx_records: [],
+      };
+    },
+    mounted() {
+      this.fetchTransactions();
+    },
+    methods: {
+        formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    },
+      fetchTransactions() {
+        // Make an HTTP request to your backend API to fetch transactions
+        axios.get('/api/transaction-records')
+          .then(response => {
+            this.trx_records = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching transactions: ', error);
+          });
+      },
+      refundTransaction(userId) {
+        // Implement logic to refund transaction for the given user
+        console.log('Refund transaction for user with ID: ', userId);
+      },
+
     },
   };
   </script>
