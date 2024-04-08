@@ -19,6 +19,7 @@ use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Backend\GetLoggedInUserTeamMembers;
 use App\Http\Controllers\Backend\GetUsersSubscriptionController;
 use App\Http\Controllers\Backend\PlanFeaturesController;
+use App\Http\Controllers\Backend\TransactionRefundController;
 use App\Http\Controllers\Backend\UserSubscriptionVerifyController;
 use App\Http\Controllers\Plans\PlanController;
 use App\Http\Controllers\Stripe\GetPaymentAPIKeyController;
@@ -96,3 +97,7 @@ Route::get('/team-members',GetLoggedInUserTeamMembers::class);
 /** GET ALL TRANSACTION RECORDS*/
 Route::get('/transaction-records',GetAllTransactionRecords::class);
 /** END GET ALL TRANSACTION RECORDS*/
+
+/**  REFUND TRANSACTION ROUTE */
+Route::post('/refund',TransactionRefundController::class);
+/** END REFUND TRANSACTION ROUTE */
