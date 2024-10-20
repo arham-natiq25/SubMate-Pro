@@ -6,20 +6,20 @@
         </div>
         <!-- End Page Title -->
 
-        <section class="section">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
+        <section class="section ">
+          <div class="row ">
+            <div class="col-lg-12 ">
+              <div class="card bg-warning">
                 <div class="card-body">
                   <h5 class="card-title">Subscription Details</h5>
                   <div class="row">
                     <!-- Placeholder for Package Name and Days Left -->
                     <div class="col-md-6">
-                      <div class="card bg-danger">
+                      <div class="card bg-dark">
                         <div class="card-body text-white">
-                          <h5 class="card-title text-">Package Name</h5>
+                          <h5 class="card-title text-warning">Package Name</h5>
                           <p class="card-text">{{ subscription.package_name }}</p>
-                          <h5 class="card-title text-">Days Left in Plan</h5>
+                          <h5 class="card-title text-warning">Days Left in Plan</h5>
                           <p class="card-text">{{ subscription.days_left }} days</p>
                         </div>
                       </div>
@@ -48,9 +48,9 @@
                   <!-- Placeholder for Other Subscription Information -->
                   <div class="row mt-4">
                     <div class="col-md-12">
-                      <div class="card bg-danger text-white">
+                      <div class="card bg-dark text-white">
                         <div class="card-body">
-                          <h5 class="card-title">Other Subscription Information</h5>
+                          <h5 class="card-title text-warning">Other Subscription Information</h5>
                           <p class="card-text">{{ subscription.other_info }}</p>
                         </div>
                       </div>
