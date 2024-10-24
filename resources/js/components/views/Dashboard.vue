@@ -79,7 +79,7 @@
         subscription: {
           package_name: "Basic Plan Monthly", // Placeholder for package name
           days_left: 17, // Placeholder for days left
-          other_info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", // Placeholder for other info
+          other_info: "You are currently subscribed to basic plan and have limited access", // Placeholder for other info
         },
       };
     },
