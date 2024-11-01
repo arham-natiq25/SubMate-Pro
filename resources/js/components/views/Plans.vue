@@ -1,7 +1,7 @@
 <template>
       <main class="container my-4">
         <div class="pagetitle">
-          <h1 class="p-3">Plans</h1>
+          <h1 class="p-3 text-dark fw-bolder">Plans</h1>
         </div>
         <section class="section">
           <div class="row">
@@ -12,11 +12,11 @@
               </div>
             <!-- plans start  -->
             <div class="col-lg-12" v-if="showPlans">
-              <div class="card">
+              <div class="card bg-secondary text-center">
                 <div class="card-body">
-                  <h5 class="card-title">Buy a PLAN</h5>
-                  <div class="row">
-                    <div v-for="plan in plans" :key="plan.id" class="col-5 mt-3">
+                  <h5 class="card-title text-white ">Buy a PLAN</h5>
+                  <div class="row ">
+                    <div v-for="plan in plans" :key="plan.id" class="col-6 mt-3">
                       <div class="card text-center">
                         <div class="card-header">
                           <h3>{{ plan.name }}</h3>

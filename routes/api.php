@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\FeatureAccessController;
 use App\Http\Controllers\Backend\Features\FeaturesController;
 use App\Http\Controllers\Backend\GetAllTransactionRecords;
 use App\Http\Controllers\Backend\GetCustomerCardsController;
+use App\Http\Controllers\Backend\GetLoggedInUserDetailsController;
 use App\Http\Controllers\Backend\GetLoggedInUserPlanFeatures;
 use App\Http\Controllers\Backend\GetLoggedInUserSubscriptionPlan;
 use App\Http\Controllers\Backend\GetLoggedInUserTeamMembers;
@@ -101,3 +102,6 @@ Route::get('/transaction-records',GetAllTransactionRecords::class);
 /**  REFUND TRANSACTION ROUTE */
 Route::post('/refund',TransactionRefundController::class);
 /** END REFUND TRANSACTION ROUTE */
+
+
+Route::get('/active-user-details',GetLoggedInUserDetailsController::class);

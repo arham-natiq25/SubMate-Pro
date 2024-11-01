@@ -14,6 +14,7 @@ class User extends Authenticatable implements JWTSubject
     use HasApiTokens, HasFactory, Notifiable;
 
 
+
     public function subscriptions() {
         return $this->hasMany(UserSubscription::class);
     }

@@ -1,11 +1,11 @@
 <template>
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #57def2;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
         <img :src="`${baseUrl}/backend/assets/img/logo.png`" alt="Logo" />
-        <span class="d-none d-lg-block">S.M SYSTEM</span>
+        <span class="d-none d-lg-block text-dark">S.M SYSTEM</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn text-white"></i>
     </div>
     <!-- End Logo -->
 
@@ -30,19 +30,18 @@
             data-bs-toggle="dropdown"
           >
             <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ userName }}</span> </a
+            <span class="d-none d-md-block dropdown-toggle ps-2 text-dark">{{ userName }}</span> </a
           ><!-- End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <ul class="dropdown-menu  dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ userName }}</h6>
-              <span>Web Designer</span>
             </li>
             <li>
               <hr class="dropdown-divider" />
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center" @click="logout" style="cursor: pointer">
+              <a class="dropdown-item" @click="logout" style="cursor: pointer">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
