@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SubMate Pro
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Live Demo**: [https://submate-pro.arhamnatiq.com](https://submate-pro.arhamnatiq.com)  
+**Demo Login**:  
+📧 Email: `test@gmail.com`  
+🔒 Password: `password`
 
-## About Laravel
+SubMate Pro is a subscription-based SaaS starter kit built with **Laravel** and **Vue.js**, designed for managing user subscriptions, team-based billing, and payment processing via **Stripe**. It features secure double authentication using **JWT** and **Laravel Sentinel**, and is ideal for developers looking to quickly launch or prototype subscription-driven web applications.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔧 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 🛡️ **Double Authentication System**  
+  Combines JWT and Laravel Sentinel for enhanced security.
 
-## Learning Laravel
+- 💳 **Stripe Payment Integration**  
+  Uses Stripe Elements to securely process payments.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- 📅 **Subscription Plans**  
+  Supports Basic and Premium plans, each with monthly and yearly billing options.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- 🧑‍💼 **Team Member Management**  
+  Registered users can add and pay for team members under their account.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- 💰 **Transaction History**  
+  Complete history of payments and actions in a dedicated transaction table.
 
-## Laravel Sponsors
+- 🔁 **Refund System**  
+  Integrated refund mechanism using Stripe's refund API.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- ⚙️ **Plans & Features CRUD**  
+  Fully customizable plans and features via CRUD operations.
 
-### Premium Partners
+- 👥 **User Overview**  
+  Admin view of all users who have subscribed to plans.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+## 📦 Tech Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Backend**: Laravel 10+, Laravel Sentinel, JWT Auth
+- **Frontend**: Vue.js 3
+- **Payments**: Stripe Elements & API
+- **Database**: MySQL
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Getting Started
 
-## Security Vulnerabilities
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/arham-natiq25/SubMate-Pro.git
+   cd SubMate-Pro
+2. Install dependencies:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+composer install
+npm install && npm run dev
 
-## License
+3.Set up .env file:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Configure database, mail, and Stripe keys.
+
+4.Run migrations:
+
+php artisan migrate --seed
+
+5.Serve the application:
+
+php artisan serve
