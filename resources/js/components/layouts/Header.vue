@@ -1,8 +1,8 @@
 <template>
   <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #57def2;">
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/" class="logo d-flex align-items-center">
-        <img :src="`${baseUrl}/backend/assets/img/logo.png`" alt="Logo" />
+      <!--<a href="/" class="logo d-flex align-items-center">-->
+        <img :src="`/backend/assets/img/logo.png`" alt="Logo" />
         <span class="d-none d-lg-block text-dark">S.M SYSTEM</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn text-white"></i>
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      baseUrl: BASE_URL,
+      baseUrl:  "https://submate-pro.arhamnatiq.com",
       isAuthenticated: false,
     };
   },

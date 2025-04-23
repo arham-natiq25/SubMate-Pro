@@ -41,14 +41,16 @@ class RegisterController extends Controller
                     'message'=>"Your account created successfully. Please check your email.
                     "
                 ]);
-            }else{
-                return response()->json([
-                    'status'=>true,
-                    'message'=>"Something went wrong"
-                ]);
+             }
+            //else{
+            //     return response()->json([
+            //         'status'=>true,
+            //         'message'=>"Something went wrong"
+            //     ]);
 
-            }
-         }else {
+            // }
+         }
+         else {
             return response()->json([
                 'status'=>true,
                 'message'=>"Something went wrong while creating your account"
