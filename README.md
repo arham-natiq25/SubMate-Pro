@@ -54,7 +54,7 @@ SubMate Pro is a subscription-based SaaS starter kit built with **Laravel** and 
    cd SubMate-Pro
 2. Install dependencies:
 
-composer install
+composer install , 
 npm install && npm run dev
 
 3.Set up .env file:
